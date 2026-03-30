@@ -46,10 +46,9 @@ export function CreateBoardModal({
       title='Create New Board'
       description='Choose a board type and give it a name to get started.'
       size='lg'
-      className='max-w-3xl'
+      className='!max-w-4xl'
     >
       <div className='space-y-6'>
-        {/* Board Type Selection */}
         <div>
           <label className='mb-2 block text-sm font-medium text-gray-700'>
             Board Type
@@ -57,7 +56,6 @@ export function CreateBoardModal({
           <BoardTypeSelector value={boardType} onChange={setBoardType} />
         </div>
 
-        {/* Board Title */}
         <div>
           <Input
             label='Board Title (Optional)'
@@ -68,7 +66,6 @@ export function CreateBoardModal({
           />
         </div>
 
-        {/* Preview */}
         <div className='rounded-lg bg-gray-50 p-4'>
           <p className='mb-2 text-xs font-medium uppercase text-gray-500'>
             Preview
