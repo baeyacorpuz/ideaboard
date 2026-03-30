@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Board, Item } from '@/types'
+import type { Board, Item, ArchivedBoard } from '@/types'
 import * as api from '@/lib/api'
 
 interface BoardState {
@@ -15,6 +15,7 @@ interface BoardState {
   getBoard: (boardId: string) => Promise<Board | null>
   updateBoard: (title: string, description?: string) => Promise<void>
   deleteBoard: () => Promise<void>
+  archiveBoard: () => Promise<ArchivedBoard>
   
   // Item actions
   addItem: (columnId: string, content: string, authorName?: string) => Promise<Item>
@@ -105,6 +106,32 @@ export const useBoardStore = create<BoardState>((set, get) => ({
       set({ currentBoard: null })
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Failed to delete board'
+      set({ error: message })
+      throw error
+    }
+  },
+
+  archiveBoard: async () => {
+    const { currentBoard } = get()
+    if (!currentBoard) throw new Error('No board loaded')
+
+    try {
+      const archived = await api.archiveBoard(currentBoard)
+      
+      // Clear items from local state (board structure remains)
+      set({
+        currentBoard: {
+          ...currentBoard,
+          columns: currentBoard.columns.map((col) => ({
+            ...col,
+            items: [],
+          })),
+        },
+      })
+
+      return archived
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to archive board'
       set({ error: message })
       throw error
     }

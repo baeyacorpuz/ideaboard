@@ -45,6 +45,31 @@ export interface Vote {
   created_at: string
 }
 
+// Archived Board interface
+export interface ArchivedBoard {
+  id: string
+  original_board_id: string
+  title: string
+  board_type: BoardType
+  snapshot_data: {
+    columns: {
+      id: string
+      title: string
+      color: string
+      position: number
+      items: {
+        id: string
+        content: string
+        author_name: string
+        votes: number
+        position: number
+      }[]
+    }[]
+  }
+  archived_at: string
+  archived_by?: string
+}
+
 // Board type configurations
 export const BOARD_TYPE_CONFIG: Record<BoardType, { name: string; description: string; columns: { title: string; color: string }[] }> = {
   retro: {

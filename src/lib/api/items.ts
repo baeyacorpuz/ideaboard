@@ -93,7 +93,7 @@ export async function moveItem(
  * Reorder items within a column
  */
 export async function reorderItems(
-  columnId: string,
+  _columnId: string,
   itemIds: string[]
 ): Promise<void> {
   // Update positions for all items

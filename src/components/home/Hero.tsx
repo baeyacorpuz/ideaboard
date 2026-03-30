@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Plus, Users, Zap, Shield, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Plus, Users, Zap, Shield, ArrowRight, History } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { BoardTypeSelector } from './BoardTypeSelector'
 import { CreateBoardModal } from './CreateBoardModal'
@@ -41,9 +42,11 @@ export function Hero() {
             >
               Create New Board
             </Button>
-            <Button variant="outline" size="lg">
-              Learn More
-            </Button>
+            <Link to="/history">
+              <Button variant="outline" size="lg" leftIcon={<History className="h-5 w-5" />}>
+                View History
+              </Button>
+            </Link>
           </div>
 
           {/* Board Type Selector Preview */}
